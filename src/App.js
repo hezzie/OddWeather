@@ -10,27 +10,58 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      city: "kigali",
+      cord: "",
+      city: "",
       data: [],
       error: ""
     };
   }
+
+  options = {
+    enableHighAccuracy: true,
+    timeout: 5000
+  };
+
+  success = pos => {
+    const crd = pos.coords;
+    this.setState({
+      cord: {
+        lat: crd.latitude,
+        long: crd.longitude,
+        accuracy: crd.accuracy
+      }
+    });
+    this.findCity();
+  };
+
+  error = err => {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  };
 
   handleChange = event => {
     const { value } = event.target;
     this.setState({ city: value });
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
+  handleSubmit = e => {
+    e.preventDefault();
     this.findCity();
   };
 
   findCity = async () => {
+    navigator.geolocation.getCurrentPosition(
+      this.success,
+      this.error,
+      this.options
+    );
+    const currentLoc =
+      this.state.city === ""
+        ? `lat=${this.state.cord.lat}&lon=${this.state.cord.long}`
+        : `q=${this.state.city}`;
+
     try {
-      const { city } = this.state;
-      const { REACT_APP_API_KEY: Key } = process.env;
-      const url = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&APPID=${Key}`;
+      const { REACT_APP_API_KEY: Key, REACT_APP_URL: URL } = process.env;
+      const url = `${URL}${currentLoc}&APPID=${Key}`;
       const result = await axios.get(url);
       this.setState({ data: result.data, error: "" });
     } catch (error) {
@@ -45,6 +76,8 @@ class App extends Component {
   }
 
   render() {
+
+
     return (
       <div>
         <Form
