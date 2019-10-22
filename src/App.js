@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-import "./App.css";
+import dotenv from "dotenv";
 import axios from "axios";
+import "./App.css";
 import Form from "./components/Form";
+
+dotenv.config();
 
 class App extends Component {
   constructor(props) {
@@ -25,7 +28,9 @@ class App extends Component {
 
   findCity = async () => {
     try {
-      const url = `http://api.openweathermap.org/data/2.5/forecast?q=${this.state.city}&APPID=7f6a0fe6f25df85a9176f605964e2fb0`;
+      const { city } = this.state;
+      const { REACT_APP_API_KEY: Key } = process.env;
+      const url = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&APPID=${Key}`;
       const result = await axios.get(url);
       this.setState({ data: result.data, error: "" });
     } catch (error) {
@@ -40,13 +45,13 @@ class App extends Component {
   }
 
   render() {
-    
     return (
       <div>
         <Form
           updateCity={this.updateCity}
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
+          state={this.state}
         />
       </div>
     );

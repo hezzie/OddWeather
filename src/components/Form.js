@@ -2,10 +2,16 @@ import React, { Component } from "react";
 
 class Form extends Component {
   render() {
+    const { city } = this.props.state;
     const { handleSubmit, handleChange } = this.props;
     return (
       <form onSubmit={handleSubmit}>
-        <input type="text" onChange={handleChange} />
+        <input
+          type="text"
+          placeholder="Type city name"
+          value={city}
+          onChange={handleChange}
+        />
       </form>
     );
   }
