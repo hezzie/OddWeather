@@ -1,10 +1,87 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 * {
+  box-sizing: border-box;
+}
+
+body {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.column {
+    float: left;
+    padding: 0;
+    margin-top:0;
+    height: 100%;
+}
+.left {
+    width: 70%;
+    padding: 5px;
+    margin: 0;
+    height: 100vh;
+}
+
+.right {
+    width: 30%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.left h6 {
+  color: white;
+}
+
+.left h2 {
+  color: white;
+  font-size: 50px;
+  margin: 0;
+}
+.left h3 {
+  color: white;
+  text-align: center;
+}
+.left p {
+  color: white;
+  margin: 0;
+  font-size: 10px;
+  margin: 0;
+}
+
+#city {
+  font-size: 40px;
+  margin: 0;
+}
+
+#date {
+  font-size: 10px;
+  margin: 0;
+}
+
+
+.grid {
+  margin-top: 350px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 500px;
+  grid-gap: 20px;
+  padding: 40px;
+
+}
+.span-row-2{
+  grid-row: span 2 / auto;
+}
+
+.left h1{
+margin: 0;
+>>>>>>> feature(background image): Edit background image functionality
 }
 
 html {
