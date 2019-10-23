@@ -97,13 +97,14 @@ body {
 
 .weather-details-container{
     width: 30%;
-    background-color: #182324;
+    background-color: black;
+    opacity: 55%;
 }
 
 .weather-details {
     height: 50%;
     width: 80%;
-    color: white;
+    color: #A4B5A5;
     overflow-y: auto;
     margin: auto;
 }
@@ -112,10 +113,15 @@ body {
     text-align: center;
     letter-spacing: 2px;
     margin: 30px 0;
+    font-size: 22px;
 }
 
 .weather-detail-data {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
+}
+
+.weather-detail-data p {
+    font-size: 20px;
 }
