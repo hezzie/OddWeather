@@ -105,6 +105,7 @@ body {
     width: 80%;
     color: white;
     overflow-y: auto;
+    margin: auto;
 }
 
 .weather-detail-header {
@@ -115,6 +116,6 @@ body {
 
 .weather-detail-data {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-bottom: 15px;
 }

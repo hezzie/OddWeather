@@ -103,9 +103,10 @@ class App extends Component {
           city={this.state.city}
           recentCities={this.state.recentCities}
         />
-        <Details 
-          state={this.state} 
-        />
+      { 
+        this.state.data.length !==0 && 
+        <Details state={this.state} />
+      }
       </div>
     );
   }
