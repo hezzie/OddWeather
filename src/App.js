@@ -5,7 +5,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "./App.css";
 import Form from "./components/Form";
 import Loader from "./components/Loader";
-
+import Details from "./components/Details";
 dotenv.config();
 
 class App extends Component {
@@ -102,6 +102,9 @@ class App extends Component {
           handleChange={this.handleChange}
           city={this.state.city}
           recentCities={this.state.recentCities}
+        />
+        <Details 
+          state={this.state} 
         />
       </div>
     );
