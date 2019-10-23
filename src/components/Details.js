@@ -6,9 +6,6 @@ class Details extends Component {
 
   render() {
     const { error, data } = this.props.state;
-    const { list } = data;
-    const currentWeather = list[0];
-    const { clouds, wind, main } = currentWeather;
     return (
       <div className="weather-details-container">
         <div className="weather-details">
@@ -19,27 +16,27 @@ class Details extends Component {
             <p className="weather-detail-header">Weather Details</p>
             <div className="weather-detail-data">
               <p>Clouds</p>
-              <p>{clouds.all}%</p>
+              <p>{data.list[0].clouds.all}%</p>
             </div>
             <div className="weather-detail-data">
               <p>Wind</p>
-              <p>{wind.speed}km/h</p>
+              <p>{data.list[0].wind.speed}km/h</p>
             </div>
             <div className="weather-detail-data">
               <p>Humidity</p>
-              <p>{main.humidity}%</p>
+              <p>{data.list[0].main.humidity}%</p>
             </div>
             <div className="weather-detail-data">
               <p>Temp</p>
-              <p>{this.convertKelvinCelcius(main.temp)}°C</p>
+              <p>{this.convertKelvinCelcius(data.list[0].main.temp)}°C</p>
             </div>
             <div className="weather-detail-data">
               <p>Max temp</p>
-              <p>{this.convertKelvinCelcius(main.temp_max)}°C</p>
+              <p>{this.convertKelvinCelcius(data.list[0].main.temp_max)}°C</p>
             </div>
             <div className="weather-detail-data">
               <p>Max temp</p>
-              <p>{this.convertKelvinCelcius(main.temp_min)}°C</p>
+              <p>{this.convertKelvinCelcius(data.list[0].main.temp_min)}°C</p>
             </div>
           </React.Fragment>
         }
