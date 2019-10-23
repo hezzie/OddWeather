@@ -1,16 +1,90 @@
-.loader {
-  text-align: center;
-  margin-top: 200px;
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
 }
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.App {
+    display: flex;
+    height: 100vh;
+    background-color: #182324;
+}
+
+.search-form {
+    position: absolute;
+    width: 30%;
+    background: black;
+    opacity: 55%;
+    float: right;
+    border-left: 1px solid black;
+    height: 50%;
+}
+
+.search-form form input {
+    width: 70%;
+    min-height: 10vh;
+    border: none;
+    border-bottom: 2px solid whitesmoke;
+    margin-left: 30px;
+    background: transparent;
+    font-size: 20px;
+    color: #A4B5A5;
+    outline: none;
+}
+
+.search-form form button {
+    width: 20%;
+    height: auto;
+    background: grey;
+    float: right;
+
+}
+
+.search-form form button img {
+    width: 100%;
+    height: auto;
+    background: grey;
+    float: right;
+
+}
+
+.search-form .popular-searches {
+    margin-top: 30px;
+    margin-left: 30px;
+}
+
+.search-form .popular-searches .popular-data {
+    margin-bottom: 10px;
+    color: white;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.loader {
+    text-align: center;
+    margin-top: 200px;
+}
+
 .overlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2;
-  cursor: pointer;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    cursor: pointer;
 }
