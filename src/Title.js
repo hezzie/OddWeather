@@ -23,8 +23,8 @@ console.log(iconsObject[this.state.icon]);
             <div class="row">
                 <div class="column left">
                     <h6>Odd Weather</h6>
-                        <div class="grid">
-                            <div class="span-row-2"><h2>08&#176;</h2></div>
+                        <div class="weatherGrid">
+                            <div class="degree-span-row-2"><h2>08&#176;</h2></div>
                             <div><p id="city">Kigali</p></div>
                             <div id="icon"><img alt="" src = { `${iconsObject[this.state.icon]}` }/></div>
                             <div><p id="date">06:09 - Sunday, 19 Oct '19</p></div>
