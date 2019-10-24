@@ -15,6 +15,7 @@ class App extends Component {
       cord: "",
       city: "",
       data: [],
+      recentCities:[],
       error: "",
       loading: true
     };
@@ -47,15 +48,18 @@ class App extends Component {
 
   handleChange = event => {
     const { value } = event.target;
-    this.setState({ city: value });
+    this.setState({ city: value});
   };
-
+ 
   handleSubmit = async e => {
     e.preventDefault();
     this.setState({ loading: true }); // Make the spinner visible
     await this.sleep(3000);
     this.findCity();
-  };
+    
+    //this.state.data !==[]? this.setState({ recentCities: [this.state.city, ...this.state.recentCities ]}) : ;
+   
+  }
 
   findCity = async () => {
     navigator.geolocation.getCurrentPosition(
@@ -72,8 +76,9 @@ class App extends Component {
       const { REACT_APP_API_KEY: Key, REACT_APP_URL: URL } = process.env;
       const url = `${URL}${currentLoc}&APPID=${Key}`;
       const result = await axios.get(url);
-      this.setState({ data: result.data, error: "", loading: false });
-      console.log(this.state.data.city.name);
+      this.setState({ data: result.data, error: "", loading: false });       
+      this.setState({ recentCities: [this.state.city, ...this.state.recentCities ]});
+      
     } catch (error) {
       const { response } = error;
       const { message } = response === undefined ? "" : response.data;
@@ -87,13 +92,16 @@ class App extends Component {
 
   render() {
     if (this.state.loading) return <Loader />;
+    
     return (
       <div>
+
         <Form
           updateCity={this.updateCity}
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           city={this.state.city}
+          recentCities={this.state.recentCities}
         />
       </div>
     );

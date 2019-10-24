@@ -1,21 +1,35 @@
 import React, { Component } from "react";
+import img from '../img/search.png'
 
 class Form extends Component {
   render() {
+    console.log('test', this.props.city);
 
     const city = this.props.city;
-    console.log("city",city);
-    
+    const recentCities = this.props.recentCities;
     const { handleSubmit, handleChange } = this.props;
+    const newRecentCity = new Set(recentCities);
+    const result = [...newRecentCity];
     return (
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Type city name"
-          value={city}
-          onChange={handleChange}
-        />
-      </form>
+      <div className="search-form">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Type city name"
+            value={city}
+            onChange={handleChange}
+          />
+          <button onClick={handleSubmit}><img src={img} alt="searchbtn" /></button>
+        </form>
+        <div className="popular-searches">
+          {
+            result.map((item, index) => {
+              return <div className="popular-data" key={index}>{item}</div>
+            })
+          }
+        </div>
+      </div>
+
     );
   }
 }
