@@ -11,27 +11,23 @@ html {
     height: 100%;
 }
 
-
-
 body {
     min-height: 100vh;
 }
 
-.App {
-    display: flex;
-    height: 100vh;
-    background-color: #182324;
-}
+/* -----------------------
+    Form
+   ---------------------- */
 
 .search-form {
-    position: absolute;
-    width: 30%;
+    position: relative;
     background: black;
     opacity: 55%;
     float: right;
-    height: 50%;
+    height: 100%;
     border-bottom: 2px solid #A4B5A5;
     overflow: hidden;
+    width: 100%;
 }
 
 .search-form form input {
@@ -96,9 +92,10 @@ body {
    ---------------------- */
 
 .weather-details-container{
-    width: 30%;
+    width: 100%;
     background-color: black;
     opacity: 55%;
+    height: 100%;
 }
 
 .weather-details {
@@ -128,4 +125,27 @@ body {
 
 .weather-detail-data p.details-data {
     color: #fff;
+}
+
+/* -----------------------
+        Main parent
+   ---------------------- */
+.grid {
+    display: flex;
+    position:absolute;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0;
+    height: 100%;
+    width:100%;
+}
+.right{
+    width: 30%;
+    height: 100%;
+}
+.left{
+    width: 70%;
+    height: 100%;
+}
+.right > div{
+    height: 50%;
 }
