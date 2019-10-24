@@ -22,19 +22,19 @@ class App extends Component {
     timeout: 5000
   };
 
-  success = pos => {
-    const crd = pos.coords;
+  geoSuccess = position => {
+    const cordinates = position.coords;
     this.setState({
       cord: {
-        lat: crd.latitude,
-        long: crd.longitude,
-        accuracy: crd.accuracy
+        lat: cordinates.latitude,
+        long: cordinates.longitude,
+        accuracy: cordinates.accuracy
       }
     });
     this.findCity();
   };
 
-  error = err => {
+  geoError = err => {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   };
 
@@ -50,8 +50,8 @@ class App extends Component {
 
   findCity = async () => {
     navigator.geolocation.getCurrentPosition(
-      this.success,
-      this.error,
+      this.geoSuccess,
+      this.geoError,
       this.options
     );
     const currentLoc =
