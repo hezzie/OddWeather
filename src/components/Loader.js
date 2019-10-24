@@ -1,7 +1,7 @@
 import React from "react";
 import Loader from "react-loader-spinner";
 
-const spin = () => {
+const Spin = () => {
   return (
     <div className="overlay">
       <div className="loader">
@@ -17,4 +17,4 @@ const spin = () => {
   );
 };
 
-export default spin;
+export default Spin;
