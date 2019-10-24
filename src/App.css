@@ -27,15 +27,16 @@ body {
     background: black;
     opacity: 55%;
     float: right;
-    border-left: 1px solid black;
     height: 50%;
+    border-bottom: 2px solid #A4B5A5;
+    overflow: hidden;
 }
 
 .search-form form input {
     width: 70%;
     min-height: 10vh;
     border: none;
-    border-bottom: 2px solid whitesmoke;
+    border-bottom: 2px solid #A4B5A5;
     margin-left: 30px;
     background: transparent;
     font-size: 20px;
