@@ -5,6 +5,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "./App.css";
 import Form from "./components/Form";
 import Loader from "./components/Loader";
+import Details from "./components/Details";
 
 dotenv.config();
 
@@ -15,7 +16,7 @@ class App extends Component {
       cord: "",
       city: "",
       data: [],
-      recentCities:[],
+      recentCities: [],
       error: "",
       loading: true
     };
@@ -43,22 +44,19 @@ class App extends Component {
 
   geoError = err => {
     console.warn(`ERROR(${err.code}): ${err.message}`);
-    this.setState({ loading: false });
+     this.setState({ loading: false });
   };
 
   handleChange = event => {
     const { value } = event.target;
-    this.setState({ city: value});
+    this.setState({ city: value });
   };
- 
+
   handleSubmit = async e => {
     e.preventDefault();
     this.setState({ loading: true }); // Make the spinner visible
     await this.sleep(3000);
     this.findCity();
-    
-    //this.state.data !==[]? this.setState({ recentCities: [this.state.city, ...this.state.recentCities ]}) : ;
-   
   }
 
   findCity = async () => {
@@ -76,9 +74,9 @@ class App extends Component {
       const { REACT_APP_API_KEY: Key, REACT_APP_URL: URL } = process.env;
       const url = `${URL}${currentLoc}&APPID=${Key}`;
       const result = await axios.get(url);
-      this.setState({ data: result.data, error: "", loading: false });       
-      this.setState({ recentCities: [this.state.city, ...this.state.recentCities ]});
-      
+      this.setState({ data: result.data, error: "", loading: false });
+      this.setState({ recentCities: [this.state.city, ...this.state.recentCities] });
+
     } catch (error) {
       const { response } = error;
       const { message } = response === undefined ? "" : response.data;
@@ -92,17 +90,27 @@ class App extends Component {
 
   render() {
     if (this.state.loading) return <Loader />;
-    
-    return (
-      <div>
 
-        <Form
-          updateCity={this.updateCity}
-          handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
-          city={this.state.city}
-          recentCities={this.state.recentCities}
-        />
+    return (
+      <div class="grid">
+        <div class="left">Item 1</div>
+        <div className="right">
+          <div>
+            <Form
+              updateCity={this.updateCity}
+              handleSubmit={this.handleSubmit}
+              handleChange={this.handleChange}
+              city={this.state.city}
+              recentCities={this.state.recentCities}
+            />
+          </div>
+          <div>
+            {
+              (this.state.data.length !== 0 || this.state.error) &&
+              <Details state={this.state} />
+            }
+          </div>
+        </div>
       </div>
     );
   }
