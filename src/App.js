@@ -42,6 +42,7 @@ class App extends Component {
 
   geoError = err => {
     console.warn(`ERROR(${err.code}): ${err.message}`);
+    this.setState({ loading: false });
   };
 
   handleChange = event => {
@@ -85,10 +86,7 @@ class App extends Component {
   }
 
   render() {
-<<<<<<< HEAD
-=======
     if (this.state.loading) return <Loader />;
->>>>>>> ft(spinner): Add loading spinner for fetch calls
     return (
       <div>
         <Form
