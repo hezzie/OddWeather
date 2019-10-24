@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import dotenv from "dotenv";
 import axios from "axios";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "./App.css";
 import Form from "./components/Form";
+import Loader from "./components/Loader";
 
 dotenv.config();
 
@@ -13,13 +15,17 @@ class App extends Component {
       cord: "",
       city: "",
       data: [],
-      error: ""
+      error: "",
+      loading: true
     };
   }
 
   options = {
     enableHighAccuracy: true,
     timeout: 5000
+  };
+  sleep = ms => {
+    return new Promise(resolve => setInterval(resolve, ms));
   };
 
   geoSuccess = position => {
@@ -36,6 +42,7 @@ class App extends Component {
 
   geoError = err => {
     console.warn(`ERROR(${err.code}): ${err.message}`);
+    this.setState({ loading: false });
   };
 
   handleChange = event => {
@@ -43,8 +50,10 @@ class App extends Component {
     this.setState({ city: value });
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
+    this.setState({ loading: true }); // Make the spinner visible
+    await this.sleep(3000);
     this.findCity();
   };
 
@@ -63,7 +72,8 @@ class App extends Component {
       const { REACT_APP_API_KEY: Key, REACT_APP_URL: URL } = process.env;
       const url = `${URL}${currentLoc}&APPID=${Key}`;
       const result = await axios.get(url);
-      this.setState({ data: result.data, error: "" });
+      this.setState({ data: result.data, error: "", loading: false });
+      console.log(this.state.data.city.name);
     } catch (error) {
       const { response } = error;
       const { message } = response === undefined ? "" : response.data;
@@ -76,6 +86,7 @@ class App extends Component {
   }
 
   render() {
+    if (this.state.loading) return <Loader />;
     return (
       <div>
         <Form
