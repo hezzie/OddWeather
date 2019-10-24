@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class Form extends Component {
   render() {
-    const { city } = this.props.state;
+    const city = this.props.city;
     const { handleSubmit, handleChange } = this.props;
     return (
       <form onSubmit={handleSubmit}>

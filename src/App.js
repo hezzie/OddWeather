@@ -76,15 +76,13 @@ class App extends Component {
   }
 
   render() {
-
-
     return (
       <div>
         <Form
           updateCity={this.updateCity}
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
-          state={this.state}
+          state={this.state.city}
         />
       </div>
     );
