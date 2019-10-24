@@ -16,27 +16,27 @@ class Details extends Component {
             <p className="weather-detail-header">Weather Details</p>
             <div className="weather-detail-data">
               <p>Clouds</p>
-              <p>{data.list[0].clouds.all}%</p>
+              <p className="details-data">{data.list[0].clouds.all}%</p>
             </div>
             <div className="weather-detail-data">
               <p>Wind</p>
-              <p>{data.list[0].wind.speed}km/h</p>
+              <p className="details-data" >{data.list[0].wind.speed}km/h</p>
             </div>
             <div className="weather-detail-data">
               <p>Humidity</p>
-              <p>{data.list[0].main.humidity}%</p>
+              <p className="details-data" >{data.list[0].main.humidity}%</p>
             </div>
             <div className="weather-detail-data">
               <p>Temp</p>
-              <p>{this.convertKelvinCelcius(data.list[0].main.temp)}°C</p>
+              <p className="details-data" >{this.convertKelvinCelcius(data.list[0].main.temp)}°C</p>
             </div>
             <div className="weather-detail-data">
               <p>Max temp</p>
-              <p>{this.convertKelvinCelcius(data.list[0].main.temp_max)}°C</p>
+              <p className="details-data" >{this.convertKelvinCelcius(data.list[0].main.temp_max)}°C</p>
             </div>
             <div className="weather-detail-data">
               <p>Max temp</p>
-              <p>{this.convertKelvinCelcius(data.list[0].main.temp_min)}°C</p>
+              <p className="details-data" >{this.convertKelvinCelcius(data.list[0].main.temp_min)}°C</p>
             </div>
           </React.Fragment>
         }

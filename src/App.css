@@ -125,3 +125,7 @@ body {
 .weather-detail-data p {
     font-size: 20px;
 }
+
+.weather-detail-data p.details-data {
+    color: #fff;
+}
