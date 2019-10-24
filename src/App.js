@@ -82,7 +82,7 @@ class App extends Component {
           updateCity={this.updateCity}
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
-          state={this.state.city}
+          city={this.state.city}
         />
       </div>
     );
