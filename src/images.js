@@ -8,9 +8,10 @@ import Hazy from './images/hazy.jpeg';
 import Dusty from './images/dusty.jpeg';
 import Tornady from './images/tornady.jpeg';
 import Cloudy from './images/cloudy.jpeg';
-
+import Default from './images/default.jpeg';
 
 const changingImages = {
+    undefined: Default,
     Thunderstorm: Rainy,
     Drizzle: Rainy,
     Rain: Rainy,

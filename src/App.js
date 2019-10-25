@@ -6,7 +6,7 @@ import "./App.css";
 import Form from "./components/Form";
 import Loader from "./components/Loader";
 import Details from "./components/Details";
-import Titles from "./Title";
+import Titles from "./components/Title";
 import imageObject from "./images";
 
 dotenv.config();
@@ -21,7 +21,6 @@ class App extends Component {
       recentCities: [],
       error: "",
       loading: true,
-      main: "Tornado"
     };
   }
 
@@ -94,17 +93,25 @@ class App extends Component {
 
   render() {
     if (this.state.loading) return <Loader />;
+    console.log("default",this.state.data.list);
+    
     const styles = {
-      background: `url(${imageObject[this.state.main]})`,
+      background: `url(${imageObject[!this.state.data ? undefined : this.state.data.list[0].weather[0].main]})`,
       backgroundSize: "cover",
-      backgroundRepeat: "no-repeat"
+      backgroundRepeat: "no-repeat",
+      height: "100%",
     };
 
+    console.log('our state', this.state);
     return (
+      
       <div class="grid">
         <div class="left">
           <div style={styles}>
-            <Titles />
+            {/* {
+              this.state.data.length > 0  && <Titles detail={this.state}/>
+            } */}
+            <Titles titleState={this.state}/>
           </div>
         </div>
         <div className="right">

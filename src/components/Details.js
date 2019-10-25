@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
+import convertDegrees from '../helpers';
 
 class Details extends Component {
-
-  convertKelvinCelcius = Kelvin => Math.ceil(Kelvin - 273.15);
 
   render() {
     const { error, data } = this.props.state;
@@ -28,15 +27,15 @@ class Details extends Component {
             </div>
             <div className="weather-detail-data">
               <p>Temp</p>
-              <p className="details-data" >{this.convertKelvinCelcius(data.list[0].main.temp)}°C</p>
+              <p className="details-data" >{convertDegrees(data.list[0].main.temp)}°C</p>
             </div>
             <div className="weather-detail-data">
               <p>Max temp</p>
-              <p className="details-data" >{this.convertKelvinCelcius(data.list[0].main.temp_max)}°C</p>
+              <p className="details-data" >{convertDegrees(data.list[0].main.temp_max)}°C</p>
             </div>
             <div className="weather-detail-data">
               <p>Max temp</p>
-              <p className="details-data" >{this.convertKelvinCelcius(data.list[0].main.temp_min)}°C</p>
+              <p className="details-data" >{convertDegrees(data.list[0].main.temp_min)}°C</p>
             </div>
           </React.Fragment>
         }

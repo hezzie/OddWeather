@@ -2,41 +2,20 @@
 
 * {
   box-sizing: border-box;
+  margin: 0;
 }
 
 body {
-    margin: 0;
     font-family: 'Montserrat', sans-serif;
-    height: 100vh;
+    height: 100%;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.column {
-    float: left;
-    padding: 0;
-    margin-top:0;
-    height: 100%;
-}
-.left {
-    width: 70%;
-    padding: 5px;
-    margin: 0;
-    height: 100vh;
-}
-
-.right {
-    width: 30%;
-}
-
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
 .left h6 {
-  color: white;
+    padding: 20px;
+    color: white;
+    font-size: 15px;
 }
 
 .left h2 {
@@ -44,10 +23,12 @@ body {
   font-size: 50px;
   margin: 0;
 }
+
 .left h3 {
   color: white;
   text-align: center;
 }
+
 .left p {
   color: white;
   margin: 0;
@@ -65,7 +46,6 @@ body {
   margin: 0;
 }
 
-
 .weatherGrid {
   margin-top: 350px;
   display: grid;
@@ -80,8 +60,7 @@ body {
 }
 
 .left h1{
-margin: 0;
->>>>>>> feature(background image): Edit background image functionality
+    margin: 0;
 }
 
 html {
@@ -99,10 +78,9 @@ body {
 .search-form {
     position: relative;
     background: black;
-    opacity: 55%;
     float: right;
     height: 100%;
-    border-bottom: 2px solid #A4B5A5;
+    border-bottom: 2px solid white;
     overflow: hidden;
     width: 100%;
 }
@@ -111,18 +89,19 @@ body {
     width: 70%;
     min-height: 10vh;
     border: none;
-    border-bottom: 2px solid #A4B5A5;
+    border-bottom: 2px solid white;
     margin-left: 30px;
     background: transparent;
     font-size: 20px;
-    color: #A4B5A5;
+    color: white;
     outline: none;
 }
 
 .search-form form button {
-    width: 20%;
+    margin-top: 20px;
+    width: 15%;
     height: auto;
-    background: grey;
+    background: black;
     float: right;
 
 }
@@ -130,7 +109,7 @@ body {
 .search-form form button img {
     width: 100%;
     height: auto;
-    background: grey;
+    background: white;
     float: right;
 
 }
@@ -169,6 +148,8 @@ body {
    ---------------------- */
 
 .weather-details-container{
+    padding-top: 0;
+    margin: 0;
     width: 100%;
     background-color: black;
     opacity: 55%;
@@ -178,8 +159,7 @@ body {
 .weather-details {
     height: 50%;
     width: 80%;
-    color: #A4B5A5;
-    overflow-y: auto;
+    color: white;
     margin: auto;
 }
 
@@ -208,20 +188,25 @@ body {
         Main parent
    ---------------------- */
 .grid {
+    margin: 0;
     display: flex;
     position:absolute;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 0;
     height: 100%;
     width:100%;
 }
 .right{
+    display: flex;
+    flex-direction: column;
     width: 30%;
     height: 100%;
+    opacity: 50%;
+    background: black;
 }
 .left{
+    padding: 0;
+    margin: 0;
     width: 70%;
-    height: 100%;
+    height: auto;
 }
 .right > div{
     height: 50%;
