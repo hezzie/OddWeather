@@ -6,6 +6,8 @@ import "./App.css";
 import Form from "./components/Form";
 import Loader from "./components/Loader";
 import Details from "./components/Details";
+import Titles from "./components/Title";
+import imageObject from "./images";
 
 dotenv.config();
 
@@ -18,7 +20,7 @@ class App extends Component {
       data: [],
       recentCities: [],
       error: "",
-      loading: true
+      loading: true,
     };
   }
 
@@ -44,7 +46,7 @@ class App extends Component {
 
   geoError = err => {
     console.warn(`ERROR(${err.code}): ${err.message}`);
-     this.setState({ loading: false });
+    this.setState({ loading: false });
   };
 
   handleChange = event => {
@@ -57,7 +59,7 @@ class App extends Component {
     this.setState({ loading: true }); // Make the spinner visible
     await this.sleep(3000);
     this.findCity();
-  }
+  };
 
   findCity = async () => {
     navigator.geolocation.getCurrentPosition(
@@ -75,8 +77,9 @@ class App extends Component {
       const url = `${URL}${currentLoc}&APPID=${Key}`;
       const result = await axios.get(url);
       this.setState({ data: result.data, error: "", loading: false });
-      this.setState({ recentCities: [this.state.city, ...this.state.recentCities] });
-
+      this.setState({
+        recentCities: [this.state.city, ...this.state.recentCities]
+      });
     } catch (error) {
       const { response } = error;
       const { message } = response === undefined ? "" : response.data;
@@ -90,10 +93,27 @@ class App extends Component {
 
   render() {
     if (this.state.loading) return <Loader />;
+    console.log("default",this.state.data.list);
+    
+    const styles = {
+      background: `url(${imageObject[!this.state.data ? undefined : this.state.data.list[0].weather[0].main]})`,
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      height: "100%",
+    };
 
+    console.log('our state', this.state);
     return (
+      
       <div class="grid">
-        <div class="left">Item 1</div>
+        <div class="left">
+          <div style={styles}>
+            {/* {
+              this.state.data.length > 0  && <Titles detail={this.state}/>
+            } */}
+            <Titles titleState={this.state}/>
+          </div>
+        </div>
         <div className="right">
           <div>
             <Form
@@ -105,15 +125,13 @@ class App extends Component {
             />
           </div>
           <div>
-            {
-              (this.state.data.length !== 0 || this.state.error) &&
+            {(this.state.data.length !== 0 || this.state.error) && (
               <Details state={this.state} />
-            }
+            )}
           </div>
         </div>
       </div>
     );
   }
 }
-
 export default App;
