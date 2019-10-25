@@ -115,7 +115,7 @@ class App extends Component {
           </div>
         </div>
         <div className="right">
-          <div>
+          <div className="upper-side">
             <Form
               updateCity={this.updateCity}
               handleSubmit={this.handleSubmit}
@@ -124,7 +124,7 @@ class App extends Component {
               recentCities={this.state.recentCities}
             />
           </div>
-          <div>
+          <div className="lower-side">
             {(this.state.data.length !== 0 || this.state.error) && (
               <Details state={this.state} />
             )}

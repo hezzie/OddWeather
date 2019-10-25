@@ -32,7 +32,7 @@ body {
 .left p {
   color: white;
   margin: 0;
-  font-size: 10px;
+  font-size: 13px;
   margin: 0;
 }
 
@@ -42,18 +42,18 @@ body {
 }
 
 #date {
-  font-size: 10px;
+  font-size: 13px;
   margin: 0;
 }
 
 .weatherGrid {
-  margin-top: 350px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   max-width: 500px;
   grid-gap: 20px;
   padding: 40px;
-
+  position: absolute;
+  bottom: 10%;
 }
 .degree-span-row-2{
   grid-row: span 2 / auto;
@@ -152,8 +152,8 @@ body {
     margin: 0;
     width: 100%;
     background-color: black;
-    opacity: 55%;
     height: 100%;
+    overflow: auto;
 }
 
 .weather-details {
@@ -208,6 +208,25 @@ body {
     width: 70%;
     height: auto;
 }
-.right > div{
-    height: 50%;
+.right > .upper-side{
+    height: 35%;
+}
+.right > .lower-side{
+    height: 65%;
+}
+@media screen  and (max-width:425px){
+    .right{
+        width: 100%;
+    }
+    .left{
+        display: none;
+    }
+}
+@media screen  and (max-width:768px) and (min-width:425px){
+    .weather-detail-header {
+        font-size: 20px;
+    }
+    .weather-detail-data p {
+        font-size: 15px;
+    }
 }
