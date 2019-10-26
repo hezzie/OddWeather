@@ -27,10 +27,15 @@ class App extends Component {
       serching: false
     };
   }
+<<<<<<< HEAD
 
   options = {
     enableHighAccuracy: true,
     timeout: 5000
+=======
+  sleep = ms => {
+    return new Promise(resolve => setInterval(resolve, ms));
+>>>>>>> ft(five days forecast): added five day weather forecast
   };
 
   geoSuccess = position => {
@@ -120,14 +125,11 @@ class App extends Component {
     };
 
     return (
-      <div class="grid">
+      <div className="grid">
         {searching && <Loader />}
-        <div class="left">
+        <div className="left">
           <div style={styles}>
-            {/* {
-              this.state.data.length > 0  && <Titles detail={this.state}/>
-            } */}
-            <Titles titleState={this.state} />
+            {!this.state.error && <Titles data={data} />}
           </div>
         </div>
         <div className="right">

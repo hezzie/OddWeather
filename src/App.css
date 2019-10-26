@@ -211,6 +211,29 @@ body {
 .right > .lower-side {
   height: 65%;
 }
+.forecast {
+  display: flex;
+  position: relative;
+  width: 80%;
+  color: #fff;
+  margin: auto;
+  flex-direction: column;
+}
+.day {
+  display: flex;
+  width: 100%;
+}
+.day > div {
+  width: 25%;
+  text-align: center;
+  min-height: 60px;
+  font-size: 20px;
+  margin: auto;
+}
+.forecast-header {
+  font-size: 30px;
+  margin: 20px 0px;
+}
 @media screen and (max-width: 425px) {
   .right {
     width: 100%;
