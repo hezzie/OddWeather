@@ -20,7 +20,7 @@ class App extends Component {
       data: [],
       recentCities: [],
       error: "",
-      loading: true,
+      loading: true
     };
   }
 
@@ -93,25 +93,23 @@ class App extends Component {
 
   render() {
     if (this.state.loading) return <Loader />;
-    console.log("default",this.state.data.list);
-    
+
     const styles = {
-      background: `url(${imageObject[!this.state.data ? undefined : this.state.data.list[0].weather[0].main]})`,
+      background: `url(${
+        imageObject[
+          !this.state.data ? undefined : this.state.data.list[0].weather[0].main
+        ]
+      })`,
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
-      height: "100%",
+      height: "100%"
     };
 
-    console.log('our state', this.state);
     return (
-      
-      <div class="grid">
-        <div class="left">
+      <div className="grid">
+        <div className="left">
           <div style={styles}>
-            {/* {
-              this.state.data.length > 0  && <Titles detail={this.state}/>
-            } */}
-            <Titles titleState={this.state}/>
+            <Titles titleState={this.state} />
           </div>
         </div>
         <div className="right">

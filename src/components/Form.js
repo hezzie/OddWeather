@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import img from '../img/search.png'
+import img from "../images/search.png";
 
 class Form extends Component {
   render() {
-    console.log('test', this.props.city);
-
     const city = this.props.city;
     const recentCities = this.props.recentCities;
     const { handleSubmit, handleChange } = this.props;
@@ -19,17 +17,20 @@ class Form extends Component {
             value={city}
             onChange={handleChange}
           />
-          <button onClick={handleSubmit}><img src={img} alt="searchbtn" /></button>
+          <button onClick={handleSubmit}>
+            <img src={img} alt="searchbtn" />
+          </button>
         </form>
         <div className="popular-searches">
-          {
-            result.map((item, index) => {
-              return <div className="popular-data" key={index}>{item}</div>
-            })
-          }
+          {result.map((item, index) => {
+            return (
+              <div className="popular-data" key={index}>
+                {item}
+              </div>
+            );
+          })}
         </div>
       </div>
-
     );
   }
 }
