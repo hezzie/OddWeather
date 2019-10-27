@@ -8,6 +8,7 @@ import Loader from "./components/Loader";
 import Details from "./components/Details";
 import Titles from "./components/Title";
 import imageObject from "./images";
+import AllCitiesStore from "./helpers/AllCitiesStore";
 
 dotenv.config();
 
@@ -20,7 +21,10 @@ class App extends Component {
       data: [],
       recentCities: [],
       error: "",
-      loading: true
+      loading: true,
+      allCities: AllCitiesStore,
+      relatedCities: [],
+      updatedRelatedCities: ""
     };
   }
 
@@ -51,7 +55,27 @@ class App extends Component {
 
   handleChange = event => {
     const { value } = event.target;
+    this.setState({
+      relatedCities: this.state.allCities.filter(item => {
+        return item.toLowerCase().search(value.toLowerCase()) !== -1;
+      })
+    });
     this.setState({ city: value });
+  };
+  handlePredictCity = async e => {
+    e.preventDefault();
+    const { value } = e.target;
+    this.setState({ updatedRelatedCities: value });
+    this.setState({ city: value });
+    this.setState({ loading: true }); // Make the spinner visible
+    await this.sleep(3000);
+    this.findCity();
+    this.setState({
+      relatedCities: []
+    });
+    this.setState({
+      updatedRelatedCities: ""
+    });
   };
 
   handleSubmit = async e => {
@@ -59,6 +83,9 @@ class App extends Component {
     this.setState({ loading: true }); // Make the spinner visible
     await this.sleep(3000);
     this.findCity();
+    this.setState({
+      relatedCities: []
+    });
   };
 
   findCity = async () => {
@@ -106,9 +133,9 @@ class App extends Component {
     };
 
     return (
-      <div className="grid">
+      <div className="grid" style={styles}>
         <div className="left">
-          <div style={styles}>
+          <div>
             <Titles titleState={this.state} />
           </div>
         </div>
@@ -118,8 +145,11 @@ class App extends Component {
               updateCity={this.updateCity}
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
+              handlePredictCity={this.handlePredictCity}
               city={this.state.city}
               recentCities={this.state.recentCities}
+              relatedCities={this.state.relatedCities}
+              updatedRelatedCities={this.state.updatedRelatedCities}
             />
           </div>
           <div className="lower-side">

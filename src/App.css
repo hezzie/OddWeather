@@ -49,11 +49,10 @@ body {
 .weatherGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  max-width: 500px;
-  grid-gap: 20px;
   padding: 40px;
   position: absolute;
   bottom: 10%;
+  width: 60%;
 }
 .degree-span-row-2 {
   grid-row: span 2 / auto;
@@ -85,23 +84,26 @@ body {
   width: 100%;
 }
 
+.search-form form {
+  border-bottom: 2px solid white;
+}
 .search-form form input {
   width: 70%;
   min-height: 10vh;
   border: none;
-  border-bottom: 2px solid white;
   margin-left: 30px;
   background: transparent;
   font-size: 20px;
   color: white;
   outline: none;
+  text-align: center;
 }
 
 .search-form form button {
-  margin-top: 20px;
-  width: 15%;
+  margin-top: 0px;
+  width: 23%;
+  height: 100%;
   height: auto;
-  background: black;
   float: right;
 }
 
@@ -149,7 +151,6 @@ body {
   padding-top: 0;
   margin: 0;
   width: 100%;
-  background-color: black;
   height: 100%;
   overflow: auto;
 }
@@ -199,6 +200,7 @@ body {
   height: 100%;
   opacity: 50%;
   background: black;
+  opacity: 0.6;
 }
 .left {
   padding: 0;
@@ -214,11 +216,13 @@ body {
 }
 .forecast {
   display: flex;
-  position: relative;
-  width: 80%;
-  color: #fff;
+  position: absolute;
+  width: 70%;
+  color: white;
   margin: auto;
+  overflow: auto;
   flex-direction: column;
+  height: 50%;
 }
 .day {
   display: flex;
@@ -227,13 +231,22 @@ body {
 .day > div {
   width: 25%;
   text-align: center;
-  min-height: 60px;
-  font-size: 20px;
+  font-size: 18px;
   margin: auto;
 }
 .forecast-header {
-  font-size: 30px;
-  margin: 20px 0px;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+button {
+  background-color: transparent;
+  border: 0 none;
+  color: white;
+  width: 90%;
+  font-size: 18px;
+  cursor: pointer;
+}
+.predict-searches {
 }
 @media screen and (max-width: 425px) {
   .right {

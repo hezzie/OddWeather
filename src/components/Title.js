@@ -10,7 +10,7 @@ class Titles extends React.Component {
         <h6>Odd Weather</h6>
         {!error && (
           <div className="forecast">
-            <div  className="forecast-header">
+            <div className="forecast-header">
               <h3>Five day weather forecast</h3>
             </div>
             <div className="day">
@@ -142,8 +142,8 @@ class Titles extends React.Component {
           </div>
         )}
         {!error && (
-          <div class="weatherGrid">
-            <div class="degree-span-row-2">
+          <div className="weatherGrid">
+            <div className="degree-span-row-2">
               <h2>
                 {Helpers.convertDegrees(
                   data.list === undefined ? "" : data.list[0].main.temp
