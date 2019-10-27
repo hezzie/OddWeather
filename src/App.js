@@ -49,8 +49,7 @@ class App extends Component {
   };
 
   geoError = err => {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-    this.setState({ loading: false });
+    this.setState({ loading: false, errror: err });
   };
 
   handleChange = event => {
