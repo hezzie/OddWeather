@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import convertDegrees from '../helpers';
+import convertDegrees from '../helpers/convert';
 
 class Details extends Component {
 

@@ -7,7 +7,9 @@ import Form from "./components/Form";
 import Loader from "./components/Loader";
 import Details from "./components/Details";
 import Titles from "./components/Title";
-import imageObject from "./images";
+import imageObject from "./helpers/images";
+import defaultCity from './helpers/defaultCity';
+import currentLocation from './helpers/currentLocation';
 
 dotenv.config();
 
@@ -21,13 +23,10 @@ class App extends Component {
       recentCities: [],
       error: "",
       loading: true,
+      isVisited: false,
     };
   }
 
-  options = {
-    enableHighAccuracy: true,
-    timeout: 5000
-  };
   sleep = ms => {
     return new Promise(resolve => setInterval(resolve, ms));
   };
@@ -45,8 +44,7 @@ class App extends Component {
   };
 
   geoError = err => {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-    this.setState({ loading: false });
+    this.setState({ loading: false, error:"Geolocation is not supported, please change the browser or enable the port" });
   };
 
   handleChange = event => {
@@ -61,71 +59,70 @@ class App extends Component {
     this.findCity();
   };
 
+  /**
+   * Get a weather forecast of a city
+   * @return {data} - 40 days, - 3 hours forecast.
+   * @return {error} if no result found.
+   */
   findCity = async () => {
-    navigator.geolocation.getCurrentPosition(
-      this.geoSuccess,
-      this.geoError,
-      this.options
-    );
-    const currentLoc =
-      this.state.city === ""
-        ? `lat=${this.state.cord.lat}&lon=${this.state.cord.long}`
-        : `q=${this.state.city}`;
-
+    const currentLoc = currentLocation(this.state);
+    const { city, recentCities } = this.state;
     try {
       const { REACT_APP_API_KEY: Key, REACT_APP_URL: URL } = process.env;
       const url = `${URL}${currentLoc}&APPID=${Key}`;
       const result = await axios.get(url);
       this.setState({ data: result.data, error: "", loading: false });
       this.setState({
-        recentCities: [this.state.city, ...this.state.recentCities]
+        recentCities: [city, ...recentCities]
       });
     } catch (error) {
       const { response } = error;
       const { message } = response === undefined ? "" : response.data;
-      this.setState({ data: "", error: message });
+      this.setState({ data: "", error: message, loading: false });
     }
   };
 
   componentDidMount() {
+    const { isVisited } = this.state;
+    if (!isVisited) {
+      defaultCity(this.geoSuccess, this.geoError);
+      return this.setState({isVisited: true});
+    }
     this.findCity();
   }
 
   render() {
-    if (this.state.loading) return <Loader />;
-    console.log("default",this.state.data.list);
-    
+    const { loading, data, recentCities, city, error } = this.state;
+    const { updateCity, handleSubmit, handleChange } = this;
+    if (loading) return <Loader />;
+
     const styles = {
-      background: `url(${imageObject[!this.state.data ? undefined : this.state.data.list[0].weather[0].main]})`,
+      background: `url(${imageObject[!data.list ? undefined : data.list[0].weather[0].main]})`,
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
       height: "100%",
     };
 
-    console.log('our state', this.state);
     return (
-      
-      <div class="grid">
-        <div class="left">
+
+      <div className="grid">
+        <div className="left">
           <div style={styles}>
-            {/* {
-              this.state.data.length > 0  && <Titles detail={this.state}/>
-            } */}
             <Titles titleState={this.state}/>
           </div>
         </div>
         <div className="right">
           <div className="upper-side">
             <Form
-              updateCity={this.updateCity}
-              handleSubmit={this.handleSubmit}
-              handleChange={this.handleChange}
-              city={this.state.city}
-              recentCities={this.state.recentCities}
+              updateCity={updateCity}
+              handleSubmit={handleSubmit}
+              handleChange={handleChange}
+              city={city}
+              recentCities={recentCities}
             />
           </div>
           <div className="lower-side">
-            {(this.state.data.length !== 0 || this.state.error) && (
+            {(data.length !== 0 || error) && (
               <Details state={this.state} />
             )}
           </div>
