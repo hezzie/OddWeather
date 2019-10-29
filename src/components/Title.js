@@ -3,9 +3,8 @@ import convertDegrees from '../helpers/convert';
 
 class Titles extends React.Component {
     render () {
-        const { error, data } = this.props.titleState;   
-        console.log(data);
-           
+        const { error, data } = this.props.titleState;
+
         return (
             <div>
                 <h6>Odd Weather</h6>

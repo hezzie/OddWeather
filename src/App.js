@@ -8,6 +8,8 @@ import Loader from "./components/Loader";
 import Details from "./components/Details";
 import Titles from "./components/Title";
 import imageObject from "./helpers/images";
+import defaultCity from './helpers/defaultCity';
+import currentLocation from './helpers/currentLocation';
 
 dotenv.config();
 
@@ -24,11 +26,6 @@ class App extends Component {
       isVisited: false,
     };
   }
-
-  options = {
-    enableHighAccuracy: true,
-    timeout: 5000
-  };
 
   sleep = ms => {
     return new Promise(resolve => setInterval(resolve, ms));
@@ -61,28 +58,6 @@ class App extends Component {
     await this.sleep(3000);
     this.findCity();
   };
-  
-  /**
-   * Get longitude and latitude of a default city
-   * @returns {coordinate} long and lat in decimal.
-   */
-  defaultCity = () => {
-    navigator.geolocation.getCurrentPosition(
-      this.geoSuccess,
-      this.geoError,
-      this.options
-    );
-  }
-
-  /**
-   * Get a city or coordinate from a state.
-   * @returns {city} forecast given city.
-   */
-  currentLocation = () => {
-    return this.state.city === "" 
-      ? `lat=${this.state.cord.lat}&lon=${this.state.cord.long}`
-      : `q=${this.state.city}`;
-  }
 
   /**
    * Get a weather forecast of a city
@@ -90,15 +65,15 @@ class App extends Component {
    * @return {error} if no result found.
    */
   findCity = async () => {
-    const currentLoc = this.currentLocation();
-    
+    const currentLoc = currentLocation(this.state);
+    const { city, recentCities } = this.state;
     try {
       const { REACT_APP_API_KEY: Key, REACT_APP_URL: URL } = process.env;
       const url = `${URL}${currentLoc}&APPID=${Key}`;
       const result = await axios.get(url);
       this.setState({ data: result.data, error: "", loading: false });
       this.setState({
-        recentCities: [this.state.city, ...this.state.recentCities]
+        recentCities: [city, ...recentCities]
       });
     } catch (error) {
       const { response } = error;
@@ -108,19 +83,21 @@ class App extends Component {
   };
 
   componentDidMount() {
-    if (!this.state.isVisited) {
-      this.defaultCity();
+    const { isVisited } = this.state;
+    if (!isVisited) {
+      defaultCity(this.geoSuccess, this.geoError);
       return this.setState({isVisited: true});
     }
     this.findCity();
   }
 
   render() {
-
-    if (this.state.loading) return <Loader />;
+    const { loading, data, recentCities, city, error } = this.state;
+    const { updateCity, handleSubmit, handleChange } = this;
+    if (loading) return <Loader />;
 
     const styles = {
-      background: `url(${imageObject[!this.state.data.list ? undefined : this.state.data.list[0].weather[0].main]})`,
+      background: `url(${imageObject[!data.list ? undefined : data.list[0].weather[0].main]})`,
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
       height: "100%",
@@ -137,15 +114,15 @@ class App extends Component {
         <div className="right">
           <div className="upper-side">
             <Form
-              updateCity={this.updateCity}
-              handleSubmit={this.handleSubmit}
-              handleChange={this.handleChange}
-              city={this.state.city}
-              recentCities={this.state.recentCities}
+              updateCity={updateCity}
+              handleSubmit={handleSubmit}
+              handleChange={handleChange}
+              city={city}
+              recentCities={recentCities}
             />
           </div>
           <div className="lower-side">
-            {(this.state.data.length !== 0 || this.state.error) && (
+            {(data.length !== 0 || error) && (
               <Details state={this.state} />
             )}
           </div>
