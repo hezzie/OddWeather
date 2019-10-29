@@ -47,8 +47,7 @@ class App extends Component {
   };
 
   geoError = err => {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-    this.setState({ loading: false });
+    this.setState({ loading: false, error:"Geolocation is not supported, please change the browser or enable the port" });
   };
 
   handleChange = event => {
@@ -92,7 +91,6 @@ class App extends Component {
    */
   findCity = async () => {
     const currentLoc = this.currentLocation();
-    console.log(this.currentLocation);
     
     try {
       const { REACT_APP_API_KEY: Key, REACT_APP_URL: URL } = process.env;
@@ -122,7 +120,7 @@ class App extends Component {
     if (this.state.loading) return <Loader />;
 
     const styles = {
-      background: `url(${imageObject[!this.state.data ? undefined : this.state.data.list[0].weather[0].main]})`,
+      background: `url(${imageObject[!this.state.data.list ? undefined : this.state.data.list[0].weather[0].main]})`,
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
       height: "100%",
