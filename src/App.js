@@ -8,8 +8,8 @@ import Loader from "./components/Loader";
 import Details from "./components/Details";
 import Titles from "./components/Title";
 import imageObject from "./helpers/images";
-import defaultCity from './helpers/defaultCity';
-import currentLocation from './helpers/currentLocation';
+import defaultCity from "./helpers/defaultCity";
+import currentLocation from "./helpers/currentLocation";
 
 dotenv.config();
 
@@ -24,11 +24,13 @@ class App extends Component {
       error: "",
       loading: true,
       isVisited: false,
+      serching: false
     };
   }
 
-  sleep = ms => {
-    return new Promise(resolve => setInterval(resolve, ms));
+  options = {
+    enableHighAccuracy: true,
+    timeout: 5000
   };
 
   geoSuccess = position => {
@@ -44,7 +46,12 @@ class App extends Component {
   };
 
   geoError = err => {
-    this.setState({ loading: false, error:"Geolocation is not supported, please change the browser or enable the port" });
+    this.setState({
+      loading: false,
+      error:
+        "Geolocation is not supported, please change the browser or enable the port"
+    });
+    this.setState({ loading: false, searching: false });
   };
 
   handleChange = event => {
@@ -54,8 +61,7 @@ class App extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    this.setState({ loading: true }); // Make the spinner visible
-    await this.sleep(3000);
+    this.setState({ searching: true }); // Make the spinner visible
     this.findCity();
   };
 
@@ -71,44 +77,57 @@ class App extends Component {
       const { REACT_APP_API_KEY: Key, REACT_APP_URL: URL } = process.env;
       const url = `${URL}${currentLoc}&APPID=${Key}`;
       const result = await axios.get(url);
-      this.setState({ data: result.data, error: "", loading: false });
+      this.setState({
+        data: result.data,
+        error: "",
+        loading: false,
+        searching: false
+      });
       this.setState({
         recentCities: [city, ...recentCities]
       });
     } catch (error) {
       const { response } = error;
       const { message } = response === undefined ? "" : response.data;
-      this.setState({ data: "", error: message, loading: false });
+      this.setState({
+        data: "",
+        searching: false,
+        error: message
+      });
     }
   };
-
   componentDidMount() {
     const { isVisited } = this.state;
     if (!isVisited) {
       defaultCity(this.geoSuccess, this.geoError);
-      return this.setState({isVisited: true});
+      return this.setState({ isVisited: true });
     }
     this.findCity();
   }
 
   render() {
-    const { loading, data, recentCities, city, error } = this.state;
+    const { loading, searching, data, recentCities, city, error } = this.state;
     const { updateCity, handleSubmit, handleChange } = this;
     if (loading) return <Loader />;
 
     const styles = {
-      background: `url(${imageObject[!data.list ? undefined : data.list[0].weather[0].main]})`,
+      background: `url(${
+        imageObject[!data.list ? undefined : data.list[0].weather[0].main]
+      })`,
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
-      height: "100%",
+      height: "100%"
     };
 
     return (
-
-      <div className="grid">
-        <div className="left">
+      <div class="grid">
+        {searching && <Loader />}
+        <div class="left">
           <div style={styles}>
-            <Titles titleState={this.state}/>
+            {/* {
+              this.state.data.length > 0  && <Titles detail={this.state}/>
+            } */}
+            <Titles titleState={this.state} />
           </div>
         </div>
         <div className="right">
@@ -122,9 +141,7 @@ class App extends Component {
             />
           </div>
           <div className="lower-side">
-            {(data.length !== 0 || error) && (
-              <Details state={this.state} />
-            )}
+            {(data.length !== 0 || error) && <Details state={this.state} />}
           </div>
         </div>
       </div>
