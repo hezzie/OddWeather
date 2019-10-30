@@ -27,15 +27,10 @@ class App extends Component {
       serching: false
     };
   }
-<<<<<<< HEAD
 
   options = {
     enableHighAccuracy: true,
     timeout: 5000
-=======
-  sleep = ms => {
-    return new Promise(resolve => setInterval(resolve, ms));
->>>>>>> ft(five days forecast): added five day weather forecast
   };
 
   geoSuccess = position => {
