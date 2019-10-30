@@ -46,14 +46,11 @@ class App extends Component {
   };
 
   geoError = err => {
-<<<<<<< HEAD
     this.setState({
       loading: false,
       error:
         "Geolocation is not supported, please change the browser or enable the port"
     });
-=======
->>>>>>> - remove debugging consoles
     this.setState({ loading: false, searching: false });
   };
 
