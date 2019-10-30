@@ -120,14 +120,11 @@ class App extends Component {
     };
 
     return (
-      <div class="grid">
+      <div className="grid">
         {searching && <Loader />}
-        <div class="left">
+        <div className="left">
           <div style={styles}>
-            {/* {
-              this.state.data.length > 0  && <Titles detail={this.state}/>
-            } */}
-            <Titles titleState={this.state} />
+            {!this.state.error && <Titles data={data} />}
           </div>
         </div>
         <div className="right">
