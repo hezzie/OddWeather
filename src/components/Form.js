@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import img from '../images/search.png';
+import img from "../images/search.png";
 
 class Form extends Component {
   render() {
-
     const city = this.props.city;
     const recentCities = this.props.recentCities;
     const { handleSubmit, handleChange } = this.props;
@@ -14,21 +13,25 @@ class Form extends Component {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
+            required
+            pattern="[A-Za-z0-9]{1,}"
             placeholder="Type city name"
             value={city}
             onChange={handleChange}
+            
           />
-          <button onClick={handleSubmit}><img src={img} alt="searchbtn" /></button>
+          <button type="submit"  ><img src={img} alt="searchbtn" /></button>
         </form>
         <div className="popular-searches">
-          {
-            result.map((item, index) => {
-              return <div className="popular-data" key={index}>{item}</div>
-            })
-          }
+          {result.map((item, index) => {
+            return (
+              <div className="popular-data" key={index}>
+                {item}
+              </div>
+            );
+          })}
         </div>
       </div>
-
     );
   }
 }

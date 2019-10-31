@@ -1,11 +1,11 @@
 ## Weather App
 Weather app shows details of the current weather conditions.
 
+## Why weather app?
+We want to help visitors/users to get current weather condition and five days forecast of given city.
+our site to search for valid city, And then get the fully information of your city, where you get the current details of weather and forecast details.
 
-## Available Scripts
-
-In the project directory, you can run:
-
+## How to test the app
 ### `npm start`
 
 Runs the app in the development mode.<br />

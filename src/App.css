@@ -98,11 +98,13 @@ body {
 }
 
 .search-form form button {
-  margin-top: 20px;
-  width: 15%;
-  height: auto;
-  background: black;
-  float: right;
+    margin-top: 20px;
+    width: 15%;
+    height: auto;
+    background: black;
+    float: right;
+    padding: 0;
+
 }
 
 .search-form form button img {
@@ -211,6 +213,29 @@ body {
 .right > .lower-side {
   height: 65%;
 }
+.forecast {
+  display: flex;
+  position: relative;
+  width: 80%;
+  color: #fff;
+  margin: auto;
+  flex-direction: column;
+}
+.day {
+  display: flex;
+  width: 100%;
+}
+.day > div {
+  width: 25%;
+  text-align: center;
+  min-height: 60px;
+  font-size: 20px;
+  margin: auto;
+}
+.forecast-header {
+  font-size: 30px;
+  margin: 20px 0px;
+}
 @media screen and (max-width: 425px) {
   .right {
     width: 100%;
@@ -226,4 +251,42 @@ body {
   .weather-detail-data p {
     font-size: 15px;
   }
+}
+
+.right{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 100%;
+    opacity: 50%;
+    background: black;
+    opacity: 0.5;
+}
+.left{
+    padding: 0;
+    margin: 0;
+    width: 70%;
+    height: auto;
+}
+.right > .upper-side{
+    height: 35%;
+}
+.right > .lower-side{
+    height: 65%;
+}
+@media screen  and (max-width:425px){
+    .right{
+        width: 100%;
+    }
+    .left{
+        display: none;
+    }
+}
+@media screen  and (max-width:768px) and (min-width:425px){
+    .weather-detail-header {
+        font-size: 20px;
+    }
+    .weather-detail-data p {
+        font-size: 15px;
+    }
 }

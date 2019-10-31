@@ -1,25 +1,42 @@
-import React from "react";
-import convertDegrees from '../helpers/convert';
+import React, { Component } from "react";
+import Convert from "../helpers/converters";
+import Forecast from "./Forecast";
 
-class Titles extends React.Component {
-    render () {
-        const { error, data } = this.props.titleState;
+class Titles extends Component {
+  render() {
+    const { REACT_APP_ICON_URL: ICON_URL } = process.env;
+    const { list, city } = this.props.data;
+    return (
+      <div>
+        <h6>Odd Weather</h6>
+        <Forecast forecast={list} />
 
-        return (
-            <div>
-                <h6>Odd Weather</h6>
-                {!error && 
-                    <div className="weatherGrid">
-                        <div className="degree-span-row-2"><h2>{convertDegrees(data.list === undefined ? "": data.list[0].main.temp)}&#176;C</h2></div>
-                        <div><p id="city">{data.list === undefined ? "" : data.city.name}</p></div>
-                        <div id="icon"><img alt="" src = { `http://openweathermap.org/img/w/${data.list === undefined ? "" : data.list[0].weather[0].icon}.png`}/></div>
-                        <div><p id="date">{data.list === undefined ? "" : data.list[0].dt_txt}</p></div>
-                        <div><p>{data.list === undefined ? "" : data.list[0].weather[0].main}</p></div>
-                    </div>
-                }
-            </div>
-        );
-    }
-};
+        <div className="weatherGrid">
+          <div className="degree-span-row-2">
+            <h2>
+              {Convert.convertDegrees(!list ? "" : list[0].main.temp)}
+              &#176;C
+            </h2>
+          </div>
+          <div>
+            <p id="city">{city.name}</p>
+          </div>
+          <div id="icon">
+            <img
+              alt=""
+              src={`${ICON_URL}${!list ? "" : list[0].weather[0].icon}.png`}
+            />
+          </div>
+          <div>
+            <p id="date">{!list ? "" : list[0].dt_txt}</p>
+          </div>
+          <div>
+            <p>{!list ? "" : list[0].weather[0].main}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Titles;
